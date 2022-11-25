@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>MorteCovid</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="MorteCovid_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MorteCovid_files/libs/quarto-html/quarto.js"></script>
+<script src="MorteCovid_files/libs/quarto-html/popper.min.js"></script>
+<script src="MorteCovid_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="MorteCovid_files/libs/quarto-html/anchor.min.js"></script>
+<link href="MorteCovid_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MorteCovid_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="MorteCovid_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="MorteCovid_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="MorteCovid_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MorteCovid</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="perfil-do-óbito-por-covid-19-em-2022" class="level2">
+<h2 class="anchored" data-anchor-id="perfil-do-óbito-por-covid-19-em-2022">Perfil do óbito por covid-19 em 2022</h2>
+</section>
+<section id="distribuição-temporal-dos-óbitos-em-2022" class="level2">
+<h2 class="anchored" data-anchor-id="distribuição-temporal-dos-óbitos-em-2022">Distribuição temporal dos óbitos em 2022</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="MorteCovid_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="pirâmide-etária-dos-óbitos" class="level2">
+<h2 class="anchored" data-anchor-id="pirâmide-etária-dos-óbitos">Pirâmide etária dos óbitos</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="MorteCovid_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="caracterização-dos-óbitos-e-fatores-de-risco---jan-set2022" class="level2">
+<h2 class="anchored" data-anchor-id="caracterização-dos-óbitos-e-fatores-de-risco---jan-set2022">Caracterização dos óbitos e fatores de risco - Jan-Set/2022</h2>
+<div class="cell">
+<div class="cell-output-display">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> Cura </th>
+   <th style="text-align:left;"> Óbito </th>
+   <th style="text-align:left;"> p </th>
+   <th style="text-align:left;"> test </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> n </td>
+   <td style="text-align:left;"> 118143 </td>
+   <td style="text-align:left;"> 52974 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cs_sexo = Homem (%) </td>
+   <td style="text-align:left;"> 58034 (49.1) </td>
+   <td style="text-align:left;"> 28400 (53.6) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cs_raca (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Branca </td>
+   <td style="text-align:left;"> 56798 (58.1) </td>
+   <td style="text-align:left;"> 26206 (57.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Preta </td>
+   <td style="text-align:left;"> 4052 ( 4.1) </td>
+   <td style="text-align:left;"> 2396 ( 5.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Amarela </td>
+   <td style="text-align:left;"> 1060 ( 1.1) </td>
+   <td style="text-align:left;"> 546 ( 1.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Parda </td>
+   <td style="text-align:left;"> 35573 (36.4) </td>
+   <td style="text-align:left;"> 16661 (36.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Indígena </td>
+   <td style="text-align:left;"> 233 ( 0.2) </td>
+   <td style="text-align:left;"> 74 ( 0.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> groupage (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 0-4 </td>
+   <td style="text-align:left;"> 7287 ( 6.2) </td>
+   <td style="text-align:left;"> 301 ( 0.6) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5-9 </td>
+   <td style="text-align:left;"> 3807 ( 3.2) </td>
+   <td style="text-align:left;"> 163 ( 0.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 10-19 </td>
+   <td style="text-align:left;"> 3489 ( 3.0) </td>
+   <td style="text-align:left;"> 240 ( 0.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 20-29 </td>
+   <td style="text-align:left;"> 6189 ( 5.2) </td>
+   <td style="text-align:left;"> 577 ( 1.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 30-39 </td>
+   <td style="text-align:left;"> 7659 ( 6.5) </td>
+   <td style="text-align:left;"> 1141 ( 2.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 40-49 </td>
+   <td style="text-align:left;"> 8834 ( 7.5) </td>
+   <td style="text-align:left;"> 2149 ( 4.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 50-59 </td>
+   <td style="text-align:left;"> 12330 (10.4) </td>
+   <td style="text-align:left;"> 4368 ( 8.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 60-69 </td>
+   <td style="text-align:left;"> 18009 (15.2) </td>
+   <td style="text-align:left;"> 8520 (16.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 70-79 </td>
+   <td style="text-align:left;"> 22066 (18.7) </td>
+   <td style="text-align:left;"> 13011 (24.6) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 80+ </td>
+   <td style="text-align:left;"> 28472 (24.1) </td>
+   <td style="text-align:left;"> 22504 (42.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cs_escol_n (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Analfabeto </td>
+   <td style="text-align:left;"> 4705 (12.1) </td>
+   <td style="text-align:left;"> 2867 (14.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fundamental 1º ciclo </td>
+   <td style="text-align:left;"> 11244 (28.9) </td>
+   <td style="text-align:left;"> 7550 (38.8) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fundamental 2º ciclo </td>
+   <td style="text-align:left;"> 6399 (16.4) </td>
+   <td style="text-align:left;"> 3570 (18.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Médio </td>
+   <td style="text-align:left;"> 8772 (22.5) </td>
+   <td style="text-align:left;"> 3703 (19.0) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Superior </td>
+   <td style="text-align:left;"> 4417 (11.3) </td>
+   <td style="text-align:left;"> 1579 ( 8.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Não se aplica </td>
+   <td style="text-align:left;"> 3396 ( 8.7) </td>
+   <td style="text-align:left;"> 187 ( 1.0) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> puerpera = Sim (%) </td>
+   <td style="text-align:left;"> 1011 ( 2.3) </td>
+   <td style="text-align:left;"> 82 ( 0.3) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cardiopati = Sim (%) </td>
+   <td style="text-align:left;"> 36272 (62.3) </td>
+   <td style="text-align:left;"> 21888 (66.6) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hematologi = Sim (%) </td>
+   <td style="text-align:left;"> 1241 ( 2.8) </td>
+   <td style="text-align:left;"> 736 ( 3.0) </td>
+   <td style="text-align:left;"> 0.094 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sind_down = Sim (%) </td>
+   <td style="text-align:left;"> 457 ( 1.0) </td>
+   <td style="text-align:left;"> 213 ( 0.9) </td>
+   <td style="text-align:left;"> 0.052 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hepatica = Sim (%) </td>
+   <td style="text-align:left;"> 946 ( 2.1) </td>
+   <td style="text-align:left;"> 926 ( 3.8) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> asma = Sim (%) </td>
+   <td style="text-align:left;"> 3451 ( 7.7) </td>
+   <td style="text-align:left;"> 1021 ( 4.2) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> diabetes = Sim (%) </td>
+   <td style="text-align:left;"> 23682 (44.3) </td>
+   <td style="text-align:left;"> 14095 (47.0) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> neurologic = Sim (%) </td>
+   <td style="text-align:left;"> 7675 (16.4) </td>
+   <td style="text-align:left;"> 5560 (21.2) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pneumopati = Sim (%) </td>
+   <td style="text-align:left;"> 5645 (12.3) </td>
+   <td style="text-align:left;"> 4290 (16.6) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> imunodepre = Sim (%) </td>
+   <td style="text-align:left;"> 4427 ( 9.7) </td>
+   <td style="text-align:left;"> 3290 (13.0) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> renal = Sim (%) </td>
+   <td style="text-align:left;"> 5081 (11.1) </td>
+   <td style="text-align:left;"> 4275 (16.6) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> obesidade = Sim (%) </td>
+   <td style="text-align:left;"> 5134 (11.4) </td>
+   <td style="text-align:left;"> 2696 (10.9) </td>
+   <td style="text-align:left;"> 0.049 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> uti = Sim (%) </td>
+   <td style="text-align:left;"> 25533 (24.6) </td>
+   <td style="text-align:left;"> 26575 (58.7) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tp_uti (mean (SD)) </td>
+   <td style="text-align:left;"> 8.89 (12.21) </td>
+   <td style="text-align:left;"> 11.07 (12.99) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> suport_ven (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Invasivo </td>
+   <td style="text-align:left;"> 5121 ( 5.1) </td>
+   <td style="text-align:left;"> 18709 (41.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Não invasivo </td>
+   <td style="text-align:left;"> 52786 (52.9) </td>
+   <td style="text-align:left;"> 21236 (47.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sem suporte </td>
+   <td style="text-align:left;"> 41825 (41.9) </td>
+   <td style="text-align:left;"> 5129 (11.4) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> vacina_cov = Sim (%) </td>
+   <td style="text-align:left;"> 81772 (71.2) </td>
+   <td style="text-align:left;"> 39223 (76.2) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> reforco = Sim (%) </td>
+   <td style="text-align:left;"> 10546 ( 8.9) </td>
+   <td style="text-align:left;"> 3178 ( 6.0) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sg_uf (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AC </td>
+   <td style="text-align:left;"> 381 ( 0.3) </td>
+   <td style="text-align:left;"> 175 ( 0.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AL </td>
+   <td style="text-align:left;"> 1132 ( 1.0) </td>
+   <td style="text-align:left;"> 576 ( 1.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AM </td>
+   <td style="text-align:left;"> 1897 ( 1.6) </td>
+   <td style="text-align:left;"> 583 ( 1.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AP </td>
+   <td style="text-align:left;"> 230 ( 0.2) </td>
+   <td style="text-align:left;"> 102 ( 0.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BA </td>
+   <td style="text-align:left;"> 3528 ( 3.0) </td>
+   <td style="text-align:left;"> 2209 ( 4.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CE </td>
+   <td style="text-align:left;"> 4220 ( 3.6) </td>
+   <td style="text-align:left;"> 2216 ( 4.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> DF </td>
+   <td style="text-align:left;"> 2838 ( 2.4) </td>
+   <td style="text-align:left;"> 673 ( 1.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ES </td>
+   <td style="text-align:left;"> 422 ( 0.4) </td>
+   <td style="text-align:left;"> 394 ( 0.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> GO </td>
+   <td style="text-align:left;"> 4673 ( 4.0) </td>
+   <td style="text-align:left;"> 2107 ( 4.0) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MA </td>
+   <td style="text-align:left;"> 706 ( 0.6) </td>
+   <td style="text-align:left;"> 558 ( 1.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MG </td>
+   <td style="text-align:left;"> 15521 (13.1) </td>
+   <td style="text-align:left;"> 6318 (11.9) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MS </td>
+   <td style="text-align:left;"> 1791 ( 1.5) </td>
+   <td style="text-align:left;"> 1034 ( 2.0) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MT </td>
+   <td style="text-align:left;"> 1925 ( 1.6) </td>
+   <td style="text-align:left;"> 443 ( 0.8) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PA </td>
+   <td style="text-align:left;"> 2097 ( 1.8) </td>
+   <td style="text-align:left;"> 914 ( 1.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PB </td>
+   <td style="text-align:left;"> 1512 ( 1.3) </td>
+   <td style="text-align:left;"> 774 ( 1.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PE </td>
+   <td style="text-align:left;"> 788 ( 0.7) </td>
+   <td style="text-align:left;"> 811 ( 1.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PI </td>
+   <td style="text-align:left;"> 925 ( 0.8) </td>
+   <td style="text-align:left;"> 509 ( 1.0) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PR </td>
+   <td style="text-align:left;"> 9936 ( 8.4) </td>
+   <td style="text-align:left;"> 3273 ( 6.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RJ </td>
+   <td style="text-align:left;"> 7253 ( 6.1) </td>
+   <td style="text-align:left;"> 5044 ( 9.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RN </td>
+   <td style="text-align:left;"> 957 ( 0.8) </td>
+   <td style="text-align:left;"> 730 ( 1.4) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RO </td>
+   <td style="text-align:left;"> 841 ( 0.7) </td>
+   <td style="text-align:left;"> 409 ( 0.8) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RR </td>
+   <td style="text-align:left;"> 46 ( 0.0) </td>
+   <td style="text-align:left;"> 81 ( 0.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RS </td>
+   <td style="text-align:left;"> 8107 ( 6.9) </td>
+   <td style="text-align:left;"> 4340 ( 8.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SC </td>
+   <td style="text-align:left;"> 6058 ( 5.1) </td>
+   <td style="text-align:left;"> 2001 ( 3.8) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SE </td>
+   <td style="text-align:left;"> 767 ( 0.6) </td>
+   <td style="text-align:left;"> 363 ( 0.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SP </td>
+   <td style="text-align:left;"> 38917 (32.9) </td>
+   <td style="text-align:left;"> 16110 (30.4) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TO </td>
+   <td style="text-align:left;"> 659 ( 0.6) </td>
+   <td style="text-align:left;"> 209 ( 0.4) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="caracterização-dos-óbitos-e-fatores-de-risco---mar-set2022" class="level2">
+<h2 class="anchored" data-anchor-id="caracterização-dos-óbitos-e-fatores-de-risco---mar-set2022">Caracterização dos óbitos e fatores de risco - Mar-Set/2022</h2>
+<div class="cell">
+<div class="cell-output-display">
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> Cura </th>
+   <th style="text-align:left;"> Óbito </th>
+   <th style="text-align:left;"> p </th>
+   <th style="text-align:left;"> test </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> n </td>
+   <td style="text-align:left;"> 47872 </td>
+   <td style="text-align:left;"> 17055 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cs_sexo = Homem (%) </td>
+   <td style="text-align:left;"> 23052 (48.2) </td>
+   <td style="text-align:left;"> 8944 (52.4) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cs_raca (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Branca </td>
+   <td style="text-align:left;"> 24224 (60.9) </td>
+   <td style="text-align:left;"> 9133 (61.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Preta </td>
+   <td style="text-align:left;"> 1503 ( 3.8) </td>
+   <td style="text-align:left;"> 715 ( 4.8) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Amarela </td>
+   <td style="text-align:left;"> 450 ( 1.1) </td>
+   <td style="text-align:left;"> 187 ( 1.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Parda </td>
+   <td style="text-align:left;"> 13525 (34.0) </td>
+   <td style="text-align:left;"> 4867 (32.6) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Indígena </td>
+   <td style="text-align:left;"> 84 ( 0.2) </td>
+   <td style="text-align:left;"> 23 ( 0.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> groupage (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 0-4 </td>
+   <td style="text-align:left;"> 3862 ( 8.1) </td>
+   <td style="text-align:left;"> 127 ( 0.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5-9 </td>
+   <td style="text-align:left;"> 1819 ( 3.8) </td>
+   <td style="text-align:left;"> 61 ( 0.4) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 10-19 </td>
+   <td style="text-align:left;"> 1455 ( 3.0) </td>
+   <td style="text-align:left;"> 88 ( 0.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 20-29 </td>
+   <td style="text-align:left;"> 2125 ( 4.4) </td>
+   <td style="text-align:left;"> 212 ( 1.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 30-39 </td>
+   <td style="text-align:left;"> 2727 ( 5.7) </td>
+   <td style="text-align:left;"> 391 ( 2.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 40-49 </td>
+   <td style="text-align:left;"> 2929 ( 6.1) </td>
+   <td style="text-align:left;"> 662 ( 3.9) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 50-59 </td>
+   <td style="text-align:left;"> 4228 ( 8.8) </td>
+   <td style="text-align:left;"> 1349 ( 7.9) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 60-69 </td>
+   <td style="text-align:left;"> 6691 (14.0) </td>
+   <td style="text-align:left;"> 2590 (15.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 70-79 </td>
+   <td style="text-align:left;"> 8941 (18.7) </td>
+   <td style="text-align:left;"> 4107 (24.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 80+ </td>
+   <td style="text-align:left;"> 13095 (27.4) </td>
+   <td style="text-align:left;"> 7468 (43.8) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cs_escol_n (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Analfabeto </td>
+   <td style="text-align:left;"> 2030 (12.7) </td>
+   <td style="text-align:left;"> 837 (13.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fundamental 1º ciclo </td>
+   <td style="text-align:left;"> 4611 (28.8) </td>
+   <td style="text-align:left;"> 2477 (39.9) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fundamental 2º ciclo </td>
+   <td style="text-align:left;"> 2524 (15.8) </td>
+   <td style="text-align:left;"> 1137 (18.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Médio </td>
+   <td style="text-align:left;"> 3298 (20.6) </td>
+   <td style="text-align:left;"> 1160 (18.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Superior </td>
+   <td style="text-align:left;"> 1753 (11.0) </td>
+   <td style="text-align:left;"> 528 ( 8.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Não se aplica </td>
+   <td style="text-align:left;"> 1784 (11.2) </td>
+   <td style="text-align:left;"> 74 ( 1.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> puerpera = Sim (%) </td>
+   <td style="text-align:left;"> 302 ( 1.7) </td>
+   <td style="text-align:left;"> 27 ( 0.3) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cardiopati = Sim (%) </td>
+   <td style="text-align:left;"> 15064 (62.7) </td>
+   <td style="text-align:left;"> 7074 (64.1) </td>
+   <td style="text-align:left;"> 0.014 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hematologi = Sim (%) </td>
+   <td style="text-align:left;"> 533 ( 2.9) </td>
+   <td style="text-align:left;"> 244 ( 2.9) </td>
+   <td style="text-align:left;"> 1.000 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sind_down = Sim (%) </td>
+   <td style="text-align:left;"> 192 ( 1.0) </td>
+   <td style="text-align:left;"> 58 ( 0.7) </td>
+   <td style="text-align:left;"> 0.006 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hepatica = Sim (%) </td>
+   <td style="text-align:left;"> 388 ( 2.1) </td>
+   <td style="text-align:left;"> 345 ( 4.0) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> asma = Sim (%) </td>
+   <td style="text-align:left;"> 1620 ( 8.6) </td>
+   <td style="text-align:left;"> 364 ( 4.3) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> diabetes = Sim (%) </td>
+   <td style="text-align:left;"> 9304 (42.4) </td>
+   <td style="text-align:left;"> 4198 (41.8) </td>
+   <td style="text-align:left;"> 0.316 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> neurologic = Sim (%) </td>
+   <td style="text-align:left;"> 3397 (17.4) </td>
+   <td style="text-align:left;"> 1917 (21.2) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pneumopati = Sim (%) </td>
+   <td style="text-align:left;"> 2698 (14.0) </td>
+   <td style="text-align:left;"> 1675 (18.6) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> imunodepre = Sim (%) </td>
+   <td style="text-align:left;"> 1863 ( 9.8) </td>
+   <td style="text-align:left;"> 1255 (14.3) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> renal = Sim (%) </td>
+   <td style="text-align:left;"> 2026 (10.6) </td>
+   <td style="text-align:left;"> 1417 (16.0) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> obesidade = Sim (%) </td>
+   <td style="text-align:left;"> 1680 ( 9.1) </td>
+   <td style="text-align:left;"> 735 ( 8.6) </td>
+   <td style="text-align:left;"> 0.217 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> uti = Sim (%) </td>
+   <td style="text-align:left;"> 10282 (24.4) </td>
+   <td style="text-align:left;"> 8378 (56.9) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tp_uti (mean (SD)) </td>
+   <td style="text-align:left;"> 7.83 (9.84) </td>
+   <td style="text-align:left;"> 10.17 (11.73) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> suport_ven (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Invasivo </td>
+   <td style="text-align:left;"> 1990 ( 4.9) </td>
+   <td style="text-align:left;"> 6033 (40.9) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Não invasivo </td>
+   <td style="text-align:left;"> 20712 (51.3) </td>
+   <td style="text-align:left;"> 6988 (47.4) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sem suporte </td>
+   <td style="text-align:left;"> 17696 (43.8) </td>
+   <td style="text-align:left;"> 1722 (11.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> vacina_cov = Sim (%) </td>
+   <td style="text-align:left;"> 38062 (80.5) </td>
+   <td style="text-align:left;"> 14679 (87.1) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> reforco = Sim (%) </td>
+   <td style="text-align:left;"> 8458 (17.7) </td>
+   <td style="text-align:left;"> 2706 (15.9) </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sg_uf (%) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> &lt;0.001 </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AC </td>
+   <td style="text-align:left;"> 198 ( 0.4) </td>
+   <td style="text-align:left;"> 43 ( 0.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AL </td>
+   <td style="text-align:left;"> 432 ( 0.9) </td>
+   <td style="text-align:left;"> 187 ( 1.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AM </td>
+   <td style="text-align:left;"> 549 ( 1.1) </td>
+   <td style="text-align:left;"> 92 ( 0.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AP </td>
+   <td style="text-align:left;"> 72 ( 0.2) </td>
+   <td style="text-align:left;"> 9 ( 0.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BA </td>
+   <td style="text-align:left;"> 1305 ( 2.7) </td>
+   <td style="text-align:left;"> 576 ( 3.4) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CE </td>
+   <td style="text-align:left;"> 1225 ( 2.6) </td>
+   <td style="text-align:left;"> 492 ( 2.9) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> DF </td>
+   <td style="text-align:left;"> 1375 ( 2.9) </td>
+   <td style="text-align:left;"> 239 ( 1.4) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ES </td>
+   <td style="text-align:left;"> 172 ( 0.4) </td>
+   <td style="text-align:left;"> 90 ( 0.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> GO </td>
+   <td style="text-align:left;"> 2110 ( 4.4) </td>
+   <td style="text-align:left;"> 808 ( 4.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MA </td>
+   <td style="text-align:left;"> 246 ( 0.5) </td>
+   <td style="text-align:left;"> 127 ( 0.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MG </td>
+   <td style="text-align:left;"> 6454 (13.5) </td>
+   <td style="text-align:left;"> 2214 (13.0) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MS </td>
+   <td style="text-align:left;"> 504 ( 1.1) </td>
+   <td style="text-align:left;"> 295 ( 1.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MT </td>
+   <td style="text-align:left;"> 685 ( 1.4) </td>
+   <td style="text-align:left;"> 124 ( 0.7) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PA </td>
+   <td style="text-align:left;"> 658 ( 1.4) </td>
+   <td style="text-align:left;"> 220 ( 1.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PB </td>
+   <td style="text-align:left;"> 599 ( 1.3) </td>
+   <td style="text-align:left;"> 203 ( 1.2) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PE </td>
+   <td style="text-align:left;"> 303 ( 0.6) </td>
+   <td style="text-align:left;"> 243 ( 1.4) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PI </td>
+   <td style="text-align:left;"> 345 ( 0.7) </td>
+   <td style="text-align:left;"> 169 ( 1.0) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PR </td>
+   <td style="text-align:left;"> 3973 ( 8.3) </td>
+   <td style="text-align:left;"> 1217 ( 7.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RJ </td>
+   <td style="text-align:left;"> 2939 ( 6.1) </td>
+   <td style="text-align:left;"> 1506 ( 8.8) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RN </td>
+   <td style="text-align:left;"> 313 ( 0.7) </td>
+   <td style="text-align:left;"> 220 ( 1.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RO </td>
+   <td style="text-align:left;"> 344 ( 0.7) </td>
+   <td style="text-align:left;"> 157 ( 0.9) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RR </td>
+   <td style="text-align:left;"> 31 ( 0.1) </td>
+   <td style="text-align:left;"> 22 ( 0.1) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RS </td>
+   <td style="text-align:left;"> 3821 ( 8.0) </td>
+   <td style="text-align:left;"> 1874 (11.0) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SC </td>
+   <td style="text-align:left;"> 2205 ( 4.6) </td>
+   <td style="text-align:left;"> 663 ( 3.9) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SE </td>
+   <td style="text-align:left;"> 225 ( 0.5) </td>
+   <td style="text-align:left;"> 90 ( 0.5) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SP </td>
+   <td style="text-align:left;"> 16579 (34.6) </td>
+   <td style="text-align:left;"> 5121 (30.0) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TO </td>
+   <td style="text-align:left;"> 203 ( 0.4) </td>
+   <td style="text-align:left;"> 52 ( 0.3) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
