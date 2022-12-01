@@ -24,6 +24,7 @@ library(geobr)
 library(sf)
 
 #Carregar arquivo com a base de dados
+#substituir pelo arquivo de vocês INFLUD22-31-10-2022.csv
 SIVEP <- read_delim("INFLUD22-17-10-2022.csv", 
     delim = ";", escape_double = FALSE, trim_ws = TRUE)
 names(SIVEP) <- tolower(names(SIVEP))
