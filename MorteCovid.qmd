@@ -1,20 +1,35 @@
 ---
 title: "MorteCovid"
+date: "`r Sys.Date()`"
 ---
 
-## Perfil do óbito por covid-19 em 2022
+## Covid death among hospitalized children and young in 2022
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, collapse = TRUE, error = FALSE, warning = FALSE, message = FALSE)
-packs <- c("tidyr", "readr", "dplyr", "tidytable", "tableone", "stringr", "ggplot2", "pyramid", "lubridate", "kableExtra")
-lapply(packs, require, character.only = TRUE)
 
-SIVEP <- read_delim("INFLUD22-19-09-2022.csv", 
+#Carregar bibliotecas necessárias
+library(readr)
+library(dplyr)
+library(tidytable)
+#library(table1)
+library(tableone)
+library(ggplot2)
+library(pyramid)
+library(lubridate)
+library(kableExtra)
+library(finalfit)
+library(expss)
+library(geobr)
+library(sf)
+
+#Carregar arquivo com a base de dados
+SIVEP <- read_delim("INFLUD22-17-10-2022.csv", 
     delim = ";", escape_double = FALSE, trim_ws = TRUE)
 names(SIVEP) <- tolower(names(SIVEP))
 ```
 
-## Distribuição temporal dos óbitos em 2022
+## Time distribution of Covid deaths by epi week in 2022
 ```{r echo=FALSE}
 TempSIVEP <- SIVEP %>% 
   filter.(classi_fin == 5) %>% 
@@ -31,11 +46,11 @@ TempSIVEP <- SIVEP %>%
         legend.justification = c("right", "top")) +
   theme_classic() +
   labs(
-    title = "Óbitos por semana",
+    title = "Deaths by week",
     subtitle = "(2022)",
-    caption = "Fonte: Sivep-Gripe",
-    x = "Tempo (semana epidemiológica)",
-    y = "Número de óbitos (N)")
+    caption = "Source: Sivep-Gripe",
+    x = "Time (epidemiologial week)",
+    y = "Death cases (N)")
 ```
 
 ## Pirâmide etária dos óbitos
@@ -44,200 +59,229 @@ ConfSIVEP <- SIVEP %>%
   filter.(classi_fin == 5) %>% 
   mutate.(obito = case_when.(evolucao == 2 ~ 1,
                              evolucao == 1 ~ 0)) %>% 
-  select.(cs_sexo, obito, nu_idade_n, id_municip, dt_interna) %>% 
+  select.(cs_sexo, obito, nu_idade_n, tp_idade, id_municip, dt_interna) %>% 
   filter.(obito == 1) %>% 
-  filter(cs_sexo != "I") %>% 
-  mutate.(groupage = case_when.(
-    nu_idade_n >= 0 & nu_idade_n < 5 ~ 1,
-    nu_idade_n >= 5 & nu_idade_n < 10 ~ 2,
-    nu_idade_n >= 10 & nu_idade_n < 20 ~ 3,
-    nu_idade_n >= 20 & nu_idade_n < 30 ~ 4,
-    nu_idade_n >= 30 & nu_idade_n < 40 ~ 5,
-    nu_idade_n >= 40 & nu_idade_n < 50 ~ 6,
-    nu_idade_n >= 50 & nu_idade_n < 60 ~ 7,
-    nu_idade_n >= 60 & nu_idade_n < 70 ~ 8,
-    nu_idade_n >= 70 & nu_idade_n < 80 ~ 9,
-    nu_idade_n >= 80 ~ 10)) %>% 
-  mutate.(groupage = factor(groupage, levels = c(1:10), 
-                            labels = c("0-4", "5-9", "10-19", "20-29", 
-                                       "30-39", "40-49", "50-59", "60-69", "70-79", "80+"))) %>% 
+  filter.(cs_sexo != "I") %>% 
+  filter.(nu_idade_n >= 0) %>% 
+  mutate.(idade = case_when(
+    tp_idade == 3 & (nu_idade_n >= 0 & nu_idade_n < 5) ~ 1,
+    tp_idade == 3 & (nu_idade_n >= 5 & nu_idade_n < 10) ~ 2,
+    tp_idade == 3 & (nu_idade_n >= 10 & nu_idade_n < 20) ~ 3,
+    tp_idade == 3 & (nu_idade_n >= 20 & nu_idade_n < 30) ~ 4,
+    tp_idade == 3 & (nu_idade_n >= 30 & nu_idade_n < 40) ~ 5,
+    tp_idade == 3 & (nu_idade_n >= 40 & nu_idade_n < 50) ~ 6,
+    tp_idade == 3 & (nu_idade_n >= 50 & nu_idade_n < 60) ~ 7,
+    tp_idade == 3 & (nu_idade_n >= 60 & nu_idade_n < 70) ~ 8,
+    tp_idade == 3 & (nu_idade_n >= 70 & nu_idade_n < 80) ~ 9,
+    tp_idade == 3 & (nu_idade_n >= 80) ~ 10,
+    (tp_idade == 1 | tp_idade == 2) & !is.na(nu_idade_n) ~ 1)
+  ) %>% 
+  mutate.(idade = factor(
+    idade, levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), labels = c("1-4y", "5-9y", "10-19y", 
+                                              "20-29y", "30-39y",
+                                              "40-49y", "50-59y",
+                                              "60-69y", "70-79y",
+                                              "80+"))) %>% 
   mutate.(cs_sexo = factor(cs_sexo, levels = c("F", "M"), labels = c("Mulher", "Homem"))) %>% 
-  summarize.(Obitos = sum(obito == 1), .by = c(cs_sexo, groupage)) %>% 
+  summarize.(Obitos = sum(obito == 1), .by = c(cs_sexo, idade)) %>% 
   pivot_wider.(names_from = cs_sexo, values_from = Obitos) %>% 
   mutate.(popt = Mulher + Homem) %>% 
   mutate.(PopPerc = popt / sum(popt) * 100) %>% 
   mutate.(PopPercM = Homem / sum(popt) * 100) %>%
   mutate.(PopPercF = Mulher / sum(popt) * 100) %>% 
-  select.(PopPercM, PopPercF, groupage)
-  pyramid(ConfSIVEP, Clab = "Faixa etária", Llab = "Masculino (%)", Rlab = "Feminino (%)", 
+  select.(PopPercM, PopPercF, idade)
+  pyramid(ConfSIVEP, Clab = "Age classes", Llab = "Men (%)", Rlab = "Women (%)", 
         Lcol = "#4d77bb", Rcol = "#ff6555",
-        main = "Pirâmide etária de óbitos por covid-19 em 2022") 
+        main = "Sex and age structure of Covid deaths in 2022") 
 ```
 
-## Caracterização dos óbitos e fatores de risco - Jan-Set/2022
+## Children and young death proportion distribution in Brazil 2022
 ```{r echo=FALSE}
-DescSIVEP <- SIVEP %>% 
+MapaBR = read_state(year = 2010, code_state = "all", showProgress = FALSE)
+MapMorte <- SIVEP %>% 
   filter.(classi_fin == 5) %>% 
   mutate.(obito = case_when.(evolucao == 2 ~ 1,
+                             evolucao == 1 ~ 0)) %>%
+  filter.(!is.na(obito)) %>% 
+  
+      filter.(nu_idade_n >= 0) %>% 
+  mutate.(idade = case_when(
+    tp_idade == 3 & (nu_idade_n >= 0 & nu_idade_n < 5) ~ 1,
+    tp_idade == 3 & (nu_idade_n >= 5 & nu_idade_n < 10) ~ 2,
+    tp_idade == 3 & (nu_idade_n >= 10 & nu_idade_n < 20) ~ 3,
+    tp_idade == 3 & (nu_idade_n >= 20 & nu_idade_n < 30) ~ 4,
+    tp_idade == 3 & (nu_idade_n >= 30 & nu_idade_n < 40) ~ 5,
+    tp_idade == 3 & (nu_idade_n >= 40 & nu_idade_n < 50) ~ 6,
+    tp_idade == 3 & (nu_idade_n >= 50 & nu_idade_n < 60) ~ 7,
+    tp_idade == 3 & (nu_idade_n >= 60 & nu_idade_n < 70) ~ 8,
+    tp_idade == 3 & (nu_idade_n >= 70 & nu_idade_n < 80) ~ 9,
+    tp_idade == 3 & (nu_idade_n >= 80) ~ 10,
+    (tp_idade == 1 | tp_idade == 2) & !is.na(nu_idade_n) ~ 1)
+  ) %>% 
+  mutate.(idade = factor(
+    idade, levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), labels = c("1 yr to 4 yrs", "5 yrs to 9 yrs", "10 yrs to 19 yrs", 
+                                              "20 yrs to 29 yrs", "30 yrs to 39 yrs",
+                                              "40 yrs to 49 yrs", "50 yrs to 59 yrs",
+                                              "60 yrs to 69 yrs", "70 yrs to 79 yrs",
+                                              "80 yrs or more"))) %>% 
+  filter.(as.integer(idade) < 4) %>% 
+  mutate.(total = 1) %>% 
+  summarise.(obito = sum(obito == 1), pop = sum(total), .by = ("sg_uf")) %>% 
+  filter.(!is.na(sg_uf)) %>% 
+  mutate.(propobito = round((obito/pop)*100, 1)) %>% 
+  mutate.(code_state = case_when.(
+    sg_uf == "RO" ~ 11, sg_uf == "AC" ~ 12, sg_uf == "AM" ~ 13, sg_uf == "RR" ~ 14, sg_uf == "PA" ~ 15,
+    sg_uf == "AP" ~ 16, sg_uf == "TO" ~ 17, sg_uf == "MA" ~ 21, sg_uf == "PI" ~ 22, sg_uf == "CE" ~ 23,
+    sg_uf == "RN" ~ 24, sg_uf == "PB" ~ 25, sg_uf == "PE" ~ 26, sg_uf == "AL" ~ 27, sg_uf == "SE" ~ 28,
+    sg_uf == "BA" ~ 29, sg_uf == "MG" ~ 31, sg_uf == "ES" ~ 32, sg_uf == "RJ" ~ 33, sg_uf == "SP" ~ 35,
+    sg_uf == "PR" ~ 41, sg_uf == "SC" ~ 42, sg_uf == "RS" ~ 43, sg_uf == "MS" ~ 50, sg_uf == "MT" ~ 51,
+    sg_uf == "GO" ~ 52, sg_uf == "DF" ~ 53,)) %>% 
+
+  inner_join.(MapaBR, .by = "code_state") %>% 
+  st_as_sf()
+  
+  ggplot(data = MapMorte) +
+  geom_sf(aes(fill = propobito ), size = .15) +
+  scale_fill_gradient(low = "light blue", high = "dark blue", name = "Death proportion") +
+  #geom_sf_text(aes(label = name_state), colour = "white") +
+  xlab("") +  ylab("") +
+  theme_classic()
+
+```
+
+## Risk factors for Covid death among children and young in Brazil, 2022
+```{r echo=FALSE}
+  DescSIVEPult <- SIVEP %>% 
+  filter.(classi_fin == 5) %>% 
+  filter.(cs_sexo != "I") %>% 
+  #filter.(month(dt_sin_pri) >= 3) %>% 
+  mutate.(obito = case_when.(evolucao == 2 ~ 1,
                              evolucao == 1 ~ 0)) %>% 
-  filter(cs_sexo != "I") %>% 
-  mutate.(groupage = case_when.(
-    nu_idade_n >= 0 & nu_idade_n < 5 ~ 1,
-    nu_idade_n >= 5 & nu_idade_n < 10 ~ 2,
-    nu_idade_n >= 10 & nu_idade_n < 20 ~ 3,
-    nu_idade_n >= 20 & nu_idade_n < 30 ~ 4,
-    nu_idade_n >= 30 & nu_idade_n < 40 ~ 5,
-    nu_idade_n >= 40 & nu_idade_n < 50 ~ 6,
-    nu_idade_n >= 50 & nu_idade_n < 60 ~ 7,
-    nu_idade_n >= 60 & nu_idade_n < 70 ~ 8,
-    nu_idade_n >= 70 & nu_idade_n < 80 ~ 9,
-    nu_idade_n >= 80 ~ 10)) %>% 
-  mutate.(groupage = factor(groupage, levels = c(1:10), 
-                            labels = c("0-4", "5-9", "10-19", "20-29", 
-                                       "30-39", "40-49", "50-59", "60-69", "70-79", "80+"))) %>% 
-  mutate.(cs_sexo = factor(cs_sexo, levels = c("F", "M"), labels = c("Mulher", "Homem"))) %>% 
-  select.(obito, cs_sexo, groupage, cs_raca, cs_escol_n, puerpera, cardiopati,
+  filter.(nu_idade_n >= 0) %>% 
+  mutate.(idade = case_when(
+    tp_idade == 3 & (nu_idade_n >= 0 & nu_idade_n < 5) ~ 1,
+    tp_idade == 3 & (nu_idade_n >= 5 & nu_idade_n < 10) ~ 2,
+    tp_idade == 3 & (nu_idade_n >= 10 & nu_idade_n < 20) ~ 3,
+    tp_idade == 3 & (nu_idade_n >= 20 & nu_idade_n < 30) ~ 4,
+    tp_idade == 3 & (nu_idade_n >= 30 & nu_idade_n < 40) ~ 5,
+    tp_idade == 3 & (nu_idade_n >= 40 & nu_idade_n < 50) ~ 6,
+    tp_idade == 3 & (nu_idade_n >= 50 & nu_idade_n < 60) ~ 7,
+    tp_idade == 3 & (nu_idade_n >= 60 & nu_idade_n < 70) ~ 8,
+    tp_idade == 3 & (nu_idade_n >= 70 & nu_idade_n < 80) ~ 9,
+    tp_idade == 3 & (nu_idade_n >= 80) ~ 10,
+    (tp_idade == 1 | tp_idade == 2) & !is.na(nu_idade_n) ~ 1)
+  ) %>% 
+  mutate.(idade = factor(
+    idade, levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), labels = c("1 yr to 4 yrs", "5 yrs to 9 yrs", "10 yrs to 19 yrs", 
+                                              "20 yrs to 29 yrs", "30 yrs to 39 yrs",
+                                              "40 yrs to 49 yrs", "50 yrs to 59 yrs",
+                                              "60 yrs to 69 yrs", "70 yrs to 79 yrs",
+                                              "80 yrs or more"))) %>% 
+  filter.(as.integer(idade) < 4) %>% 
+  mutate.(cs_sexo = factor(cs_sexo, levels = c("F", "M"), labels = c("Women", "Men"))) %>% 
+  select.(obito, cs_sexo, idade, cs_raca, cs_escol_n, cardiopati,
           hematologi, sind_down, hepatica, asma, diabetes, neurologic, pneumopati, imunodepre,
-          renal, obesidade, dt_1_dose, dt_2_dose, vacina, uti, dt_entuti, dt_saiduti, suport_ven, 
+          renal, obesidade, dt_1_dose, dt_2_dose, uti, dt_entuti, dt_saiduti, suport_ven, 
           vacina_cov, dose_1_cov, dose_2_cov, dose_ref, fab_cov_1, fab_cov_2, fab_covref, 
           sg_uf) %>% 
   mutate.(cs_raca = factor(cs_raca, levels = c(1, 2, 3, 4, 5), 
-                           labels = c("Branca", "Preta", "Amarela", "Parda", "Indígena"))) %>% 
+                           labels = c("White", "Black", "Asian", "multiracial", "Indigenous"))) %>% 
   mutate.(cs_escol_n = factor(cs_escol_n, levels = c(0, 1, 2, 3, 4, 5), 
-                           labels = c("Analfabeto", "Fundamental 1º ciclo", 
-                                      "Fundamental 2º ciclo", "Médio", "Superior", 
-                                      "Não se aplica"))) %>% 
-  mutate.(puerpera = factor(puerpera, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("Illiterate", "Basic 1st cycle", 
+                                      "Basic 2nd cycle", "High scholl", "College", 
+                                      "Not applicable"))) %>% 
   mutate.(cardiopati = factor(cardiopati, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(hematologi = factor(hematologi, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(sind_down = factor(sind_down, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(hepatica = factor(hepatica, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(asma = factor(asma, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(diabetes = factor(diabetes, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(neurologic = factor(neurologic, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(pneumopati = factor(pneumopati, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(imunodepre = factor(imunodepre, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(renal = factor(renal, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(obesidade = factor(obesidade, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(vacina_cov = factor(vacina_cov, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
+                           labels = c("No", "Yes"))) %>%
   mutate.(uti = factor(uti, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>% 
+                           labels = c("No", "Yes"))) %>% 
+  mutate.(vac1 = case_when.(!is.na(dose_1_cov) ~ 1,
+                            is.na(dose_1_cov) ~ 0)) %>% 
+  mutate.(vac2 = case_when.(!is.na(dose_2_cov) ~ 1,
+                            is.na(dose_2_cov) ~ 0)) %>% 
+  mutate.(vacref = case_when.(!is.na(dose_ref) ~ 1,
+                            is.na(dose_ref) ~ 0)) %>% 
+  
+  mutate.(vacref = factor(vacref, levels = c(0, 1), labels = c("No", "Yes"))) %>% 
   mutate.(dt_entuti = dmy(dt_entuti)) %>% 
   mutate.(dt_saiduti = dmy(dt_saiduti)) %>% 
   mutate.(tp_uti = as.numeric(dt_saiduti - dt_entuti)) %>% 
   mutate.(suport_ven = factor(suport_ven, levels = c(1, 2, 3), 
-                              labels = c("Invasivo", "Não invasivo", "Sem suporte"))) %>%
-  mutate.(dose_ref = dmy(dose_ref)) %>%
-  mutate.(reforco = ifelse.(!is.na(dose_ref) & year(dose_ref) == 2022, 1, 0)) %>%
-  mutate.(reforco = factor(reforco, levels = c(0, 1), labels = c("Não", "Sim"))) %>% 
-  mutate.(obito = factor(obito, levels = c(0, 1), labels = c("Cura", "Óbito")))
-
-BaseVar <- c(
-  "cs_sexo", "cs_raca", "groupage", "cs_escol_n", "puerpera", "cardiopati", 
-  "hematologi", "sind_down", "hepatica", "asma", "diabetes", "neurologic", "pneumopati",
-  "imunodepre","renal", "obesidade", "uti", "tp_uti", "suport_ven", "vacina_cov", "reforco", "sg_uf")
-BaseVarCat <- c("cs_sexo", "cs_raca", "groupage", "cs_escol_n", "puerpera", "cardiopati", 
-  "hematologi", "sind_down", "hepatica", "asma", "diabetes", "neurologic", "pneumopati",
-  "imunodepre","renal", "obesidade", "uti", "suport_ven", "vacina_cov", "reforco", "sg_uf")
-Tab1 <- CreateTableOne(vars = BaseVar, strata = "obito" , data = DescSIVEP, factorVars = BaseVarCat)
-#print(Tab1, nonnormal = "tp_uti", formatOptions = list(big.mark = ","))
-kableone(Tab1)
-```
-
-## Caracterização dos óbitos e fatores de risco - Mar-Set/2022
-```{r echo=FALSE}
-DescSIVEPult <- SIVEP %>% 
-  filter.(classi_fin == 5) %>% 
-  filter(cs_sexo != "I") %>% 
-  filter.(month(dt_sin_pri) >= 3) %>% 
-  mutate.(obito = case_when.(evolucao == 2 ~ 1,
-                             evolucao == 1 ~ 0)) %>% 
-  mutate.(groupage = case_when.(
-    nu_idade_n >= 0 & nu_idade_n < 5 ~ 1,
-    nu_idade_n >= 5 & nu_idade_n < 10 ~ 2,
-    nu_idade_n >= 10 & nu_idade_n < 20 ~ 3,
-    nu_idade_n >= 20 & nu_idade_n < 30 ~ 4,
-    nu_idade_n >= 30 & nu_idade_n < 40 ~ 5,
-    nu_idade_n >= 40 & nu_idade_n < 50 ~ 6,
-    nu_idade_n >= 50 & nu_idade_n < 60 ~ 7,
-    nu_idade_n >= 60 & nu_idade_n < 70 ~ 8,
-    nu_idade_n >= 70 & nu_idade_n < 80 ~ 9,
-    nu_idade_n >= 80 ~ 10)) %>% 
-  mutate.(groupage = factor(groupage, levels = c(1:10), 
-                            labels = c("0-4", "5-9", "10-19", "20-29", 
-                                       "30-39", "40-49", "50-59", "60-69", "70-79", "80+"))) %>% 
-  mutate.(cs_sexo = factor(cs_sexo, levels = c("F", "M"), labels = c("Mulher", "Homem"))) %>% 
-  select.(obito, cs_sexo, groupage, cs_raca, cs_escol_n, puerpera, cardiopati,
-          hematologi, sind_down, hepatica, asma, diabetes, neurologic, pneumopati, imunodepre,
-          renal, obesidade, dt_1_dose, dt_2_dose, vacina, uti, dt_entuti, dt_saiduti, suport_ven, 
-          vacina_cov, dose_1_cov, dose_2_cov, dose_ref, fab_cov_1, fab_cov_2, fab_covref, 
-          sg_uf) %>% 
-  mutate.(cs_raca = factor(cs_raca, levels = c(1, 2, 3, 4, 5), 
-                           labels = c("Branca", "Preta", "Amarela", "Parda", "Indígena"))) %>% 
-  mutate.(cs_escol_n = factor(cs_escol_n, levels = c(0, 1, 2, 3, 4, 5), 
-                           labels = c("Analfabeto", "Fundamental 1º ciclo", 
-                                      "Fundamental 2º ciclo", "Médio", "Superior", 
-                                      "Não se aplica"))) %>% 
-  mutate.(puerpera = factor(puerpera, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(cardiopati = factor(cardiopati, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(hematologi = factor(hematologi, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(sind_down = factor(sind_down, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(hepatica = factor(hepatica, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(asma = factor(asma, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(diabetes = factor(diabetes, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(neurologic = factor(neurologic, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(pneumopati = factor(pneumopati, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(imunodepre = factor(imunodepre, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(renal = factor(renal, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(obesidade = factor(obesidade, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(vacina_cov = factor(vacina_cov, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>%
-  mutate.(uti = factor(uti, levels = c(2, 1), 
-                           labels = c("Não", "Sim"))) %>% 
-  mutate.(dt_entuti = dmy(dt_entuti)) %>% 
-  mutate.(dt_saiduti = dmy(dt_saiduti)) %>% 
-  mutate.(tp_uti = as.numeric(dt_saiduti - dt_entuti)) %>% 
-  mutate.(suport_ven = factor(suport_ven, levels = c(1, 2, 3), 
-                              labels = c("Invasivo", "Não invasivo", "Sem suporte"))) %>% 
-  mutate.(dose_ref = dmy(dose_ref)) %>%
-  mutate.(reforco = ifelse.(!is.na(dose_ref) & year(dose_ref) == 2022, 1, 0)) %>%
-  mutate.(reforco = factor(reforco, levels = c(0, 1), labels = c("Não", "Sim"))) %>% 
-  mutate.(obito = factor(obito, levels = c(0, 1), labels = c("Cura", "Óbito")))
-
-BaseVar <- c(
-  "cs_sexo", "cs_raca", "groupage", "cs_escol_n", "puerpera", "cardiopati", 
-  "hematologi", "sind_down", "hepatica", "asma", "diabetes", "neurologic", "pneumopati",
-  "imunodepre","renal", "obesidade", "uti", "tp_uti", "suport_ven", "vacina_cov", "reforco", "sg_uf")
-BaseVarCat <- c("cs_sexo", "cs_raca", "groupage", "cs_escol_n", "puerpera", "cardiopati", 
-  "hematologi", "sind_down", "hepatica", "asma", "diabetes", "neurologic", "pneumopati",
-  "imunodepre","renal", "obesidade", "uti", "suport_ven", "vacina_cov", "reforco", "sg_uf")
-Tab2 <- CreateTableOne(vars = BaseVar, strata = "obito" , data = DescSIVEPult, factorVars = BaseVarCat)
+                              labels = c("Invasive", "Non invasive", "No vent. support"))) %>% 
+  mutate.(obito = factor(obito, levels = c(0, 1), labels = c("No", "Yes"))) %>% 
+  rename.(Death = obito) %>% 
+  rename.(Sex = cs_sexo) %>% 
+  rename.(Age = idade) %>% 
+  rename.(Race = cs_raca) %>% 
+  rename.(Scholarship = cs_escol_n) %>% 
+  rename.(`Heart disease` = cardiopati) %>% 
+  rename.(`Hematological disease` = hematologi) %>% 
+  rename.(`Down syndrome` = sind_down) %>% 
+  rename.(`Liver disease` = hepatica) %>% 
+  rename.(Ashtma = asma) %>% 
+  rename.(Diabetes = diabetes) %>% 
+  rename.(`Neurological disase` = neurologic) %>% 
+  rename.(`Lung disease` = pneumopati) %>% 
+  rename.( Immunosupression = imunodepre) %>% 
+  rename.(`Kidney disease` = renal) %>% 
+  rename.(Obesity = obesidade) %>% 
+  rename.(UCI = uti) %>% 
+  rename.(`Time at UCI` = tp_uti) %>%
+  rename.(`Ventilatory support` = suport_ven) %>%
+  rename.(`Covid vaccine` = vacina_cov) %>%
+  rename.(`1st dose` = vac1) %>%
+  rename.(`2nd dose` = vac2) %>%
+  rename.(`Booster dose` = vacref)
+  
+BaseVar <- c("Sex", "Race", "Age", "Scholarship", "Heart disease", "Hematological disease", "Down syndrome", 
+             "Liver disease", "Ashtma", "Diabetes", "Neurological disase", "Lung disease", "Immunosupression", 
+             "Kidney disease", "Obesity", "UCI", "Time at UCI", "Ventilatory support", "Covid vaccine", "Booster dose")
+BaseVarCat <- c("Sex", "Race", "Age", "Scholarship", "Heart disease", 
+  "Hematological disease", "Down syndrome", "Liver disease", "Ashtma", "Diabetes", "Neurological disase", "Lung disease",
+  "Immunosupression","Kidney disease", "Obesity", "UCI", "Ventilatory support", "Covid vaccine", "Booster dose")
+Tab2 <- CreateTableOne(vars = BaseVar, strata = "Death" , data = DescSIVEPult, factorVars = BaseVarCat)
 #print(Tab1, nonnormal = "tp_uti", formatOptions = list(big.mark = ","))
 kableone(Tab2)
+
 ```
 
+## Multiv. analysis for death in children - OR Plot
+```{r children, echo=FALSE}
+explaninf <- c("Sex", "UCI", "Obesity", "Immunosupression") 
+desf1inf <- "Death"
+# Tabdesf <- DescSIVEPult %>% 
+# finalfit(desf1inf, explaninf) 
+# kable(Tabdesf)
+
+DescSIVEPult %>%
+  or_plot(desf1inf, explaninf, remove_ref = T, table_text_size=3, title_text_size=12,
+          plot_opts=list(xlab("OR, 95% CI"), 
+                         theme(axis.title = element_text(size=9))))
+
+```
+
+## <span style="color: red;">Desafio: refazer a tabela 1 e o forest plot de um modelo para mulheres incluindo idade como fator de risco</span>
+```{r women, echo=FALSE}
+
+```
